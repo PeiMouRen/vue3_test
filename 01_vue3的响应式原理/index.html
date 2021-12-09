@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 源数据
+        let person = {
+            name: '张三',
+            age: 18
+        }
+
+        // 模拟vue2中的响应式
+        //#regin
+        /* let p = {};
+        Object.defineProperty(p, 'name', {
+            configurable: true, // 可删除
+            get() {
+                return person.name;
+            },
+            set(value) {
+                person.name = value
+            }
+        })
+        Object.defineProperty(p, 'age', {
+            get() {
+                return person.age;
+            },
+            set(value) {
+                person.age = value
+            }
+        }) */
+        //#endregin
+        
+        // 模拟vue3中的响应式
+        let p = new Proxy(person, {
+            get(target, propName) {
+                console.log('read', target, propName)
+                return target[propName]
+            },
+            set(target, propName, value) {
+                console.log('write', target, propName, value)
+                target[propName] = value
+            },
+            deleteProperty(target, propName) {
+                console.log('delete', target, propName)
+                return delete target[propName]
+            }
+        })
+    
+    </script>
+</body>
+</html>

@@ -40,15 +40,15 @@
         let p = new Proxy(person, {
             get(target, propName) {
                 console.log('read', target, propName)
-                return target[propName]
+                return Reflect.get(target, propName)
             },
             set(target, propName, value) {
                 console.log('write', target, propName, value)
-                target[propName] = value
+                Reflect.set(target, propName, value)
             },
             deleteProperty(target, propName) {
                 console.log('delete', target, propName)
-                return delete target[propName]
+                return Reflect.deleteProperty(target, propName)
             }
         })
     
